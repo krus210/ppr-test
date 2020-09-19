@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PPR Test</string>
+    <string name="title_name">Генератор</string>
+    <string name="prime_numbers">Простые числа</string>
+    <string name="fibonacci_numbers">Числа Фибоначи</string>
+</resources>

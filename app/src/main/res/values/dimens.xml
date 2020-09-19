@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_item_view">100dp</dimen>
+    <dimen name="size_max_number">48sp</dimen>
+    <dimen name="size_min_number">8sp</dimen>
+    <dimen name="step_of_size_number">2sp</dimen>
+</resources>
