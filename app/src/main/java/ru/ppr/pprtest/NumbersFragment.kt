@@ -52,7 +52,7 @@ class NumbersFragment : Fragment() {
         with(container) {
             layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
             adapter = NumbersAdapter(mutableListOf())
-            numbersViewModel.loadNumbers(null, null)
+            numbersViewModel.loadNumbers()
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (dy > 0) {
@@ -64,7 +64,7 @@ class NumbersFragment : Fragment() {
                             if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                                 loading = false
                                 val list = (adapter as NumbersAdapter).list
-                                numbersViewModel.loadNumbers(list.last(), list[list.lastIndex - 1])
+                                numbersViewModel.loadNumbers( list.lastIndex, list.last(), list[list.lastIndex - 1])
                             }
                         }
                     }

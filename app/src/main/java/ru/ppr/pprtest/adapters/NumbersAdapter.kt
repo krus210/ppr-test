@@ -27,7 +27,7 @@ class NumbersAdapter(val list: MutableList<NumberItem>): RecyclerView.Adapter<Re
     inner class NumbersViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         fun bind(numberItem: NumberItem) {
             with (view) {
-                tv_number.text = numberItem.number.toString()
+                tv_number.text = "${numberItem.number}"
                 val color = if (numberItem.isWhiteColor) {
                     R.color.colorWhite
                 } else {

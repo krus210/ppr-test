@@ -14,10 +14,11 @@ abstract class BaseViewModel: ViewModel() {
     abstract val numbersLiveData: MutableLiveData<List<NumberItem>>
 
     fun loadNumbers(
-        lastItem: NumberItem? = null,
-        preLastItem: NumberItem? = null
+        lastIndex: Int = 0,
+        lastItem: NumberItem?= null,
+        preLastItem: NumberItem?=null
     ) {
-        repository.loadNumbers(lastItem, preLastItem)
+        repository.loadNumbers(lastIndex, lastItem, preLastItem)
     }
 
     fun getNumbers() = numbersLiveData
