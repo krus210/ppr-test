@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger
 abstract class AbstractRepository {
 
     val numbersLiveData = MutableLiveData<List<NumberItem>>()
-    private val countForLoading = 50
+    private val countForLoading = 20
 
     abstract suspend fun isRequiredNumber(number: Int): Boolean
 
