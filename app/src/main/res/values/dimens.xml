@@ -4,4 +4,6 @@
     <dimen name="size_max_number">48sp</dimen>
     <dimen name="size_min_number">8sp</dimen>
     <dimen name="step_of_size_number">2sp</dimen>
+    <dimen name="padding_item">5dp</dimen>
+    <dimen name="max_width">160dp</dimen>
 </resources>

@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_numbers.*
-import kotlinx.android.synthetic.main.fragment_numbers.view.*
-import ru.ppr.pprtest.adapters.NumberItem
 import ru.ppr.pprtest.adapters.NumbersAdapter
+import ru.ppr.pprtest.viewmodels.FibonacciViewModel
+import ru.ppr.pprtest.viewmodels.PrimeNumbersViewModel
+import ru.ppr.pprtest.viewmodels.ViewModelFactory
 
 
 private const val TYPE_OF_FRAGMENT = "type"
@@ -23,10 +23,12 @@ class NumbersFragment : Fragment() {
     private var type: String? = null
     private var loading = true
 
-    private val vmFactory by lazy { ViewModelFactory(type ?: PRIME_NUMBERS_TYPE) }
+    private val vmFactory by lazy { ViewModelFactory() }
     private val numbersViewModel by lazy {
+        val viewModelClass = if (type == PRIME_NUMBERS_TYPE) PrimeNumbersViewModel::class.java
+        else FibonacciViewModel::class.java
         ViewModelProvider(requireActivity(), vmFactory).get(
-            NumbersViewModel::class.java
+            viewModelClass
         )
     }
 
@@ -71,6 +73,7 @@ class NumbersFragment : Fragment() {
         }
         numbersViewModel.getNumbers().observe(viewLifecycleOwner, Observer {
             with((container.adapter as NumbersAdapter)) {
+                Log.d("list", it.toString())
 //                val lastIndex = list.lastIndex
                 list.addAll(it)
                 notifyDataSetChanged()

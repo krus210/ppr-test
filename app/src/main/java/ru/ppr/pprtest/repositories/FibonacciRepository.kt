@@ -1,17 +1,19 @@
 package ru.ppr.pprtest.repositories
 
+import kotlin.math.floor
+import kotlin.math.round
+import kotlin.math.sqrt
+
 object FibonacciRepository : AbstractRepository() {
 
     override suspend fun isRequiredNumber(number: Int): Boolean {
-        var flag = false
-        for (i in 2..number / 2) {
-            if (number % i == 0) {
-                flag = true
-                break
-            }
-        }
-
-        return !flag
+        return isPerfectSquare(5 * number * number + 4) ||
+                isPerfectSquare(5 * number * number - 4)
     }
 
+    private fun isPerfectSquare(x: Int): Boolean {
+        val s = sqrt(x.toDouble())
+        val f = floor(s)
+        return s == f
+    }
 }

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_view">
 
     <TextView
@@ -12,8 +12,10 @@
         tools:text="12"
         android:autoSizeTextType="uniform"
         android:textSize="@dimen/size_max_number"
+        android:padding="@dimen/padding_item"
         android:autoSizeMinTextSize="@dimen/size_min_number"
         android:maxLines="1"
+        android:maxWidth="@dimen/max_width"
         android:autoSizeMaxTextSize="@dimen/size_max_number"
         android:autoSizeStepGranularity="@dimen/step_of_size_number"
         app:layout_constraintBottom_toBottomOf="parent"
