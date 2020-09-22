@@ -15,8 +15,8 @@ abstract class BaseViewModel: ViewModel() {
 
     fun loadNumbers(
         lastIndex: Int = 0,
-        lastItem: NumberItem?= null,
-        preLastItem: NumberItem?=null
+        lastItem: NumberItem? = null,
+        preLastItem: NumberItem?= null
     ) {
         repository.loadNumbers(lastIndex, lastItem, preLastItem)
     }

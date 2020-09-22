@@ -11,17 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_numbers.*
+import ru.ppr.pprtest.adapters.NumberItem
 import ru.ppr.pprtest.adapters.NumbersAdapter
 import ru.ppr.pprtest.viewmodels.FibonacciViewModel
 import ru.ppr.pprtest.viewmodels.PrimeNumbersViewModel
 import ru.ppr.pprtest.viewmodels.ViewModelFactory
+import java.math.BigInteger
 
 
 private const val TYPE_OF_FRAGMENT = "type"
 
 class NumbersFragment : Fragment() {
     private var type: String? = null
-    private var loading = true
 
     private val vmFactory by lazy { ViewModelFactory() }
     private val numbersViewModel by lazy {
@@ -51,33 +52,16 @@ class NumbersFragment : Fragment() {
         Log.d("onViewCreated", type!!)
         with(container) {
             layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
-            adapter = NumbersAdapter(mutableListOf())
+            adapter = NumbersAdapter(mutableListOf()) { position, lastItem, preLastItem ->
+                numbersViewModel.loadNumbers(position, lastItem, preLastItem)
+            }
             numbersViewModel.loadNumbers()
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 0) {
-                        if (loading) {
-                            val visibleItemCount = (layoutManager as GridLayoutManager).childCount
-                            val totalItemCount = (layoutManager as GridLayoutManager).itemCount
-                            val pastVisibleItems =
-                                (layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
-                            if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                                loading = false
-                                val list = (adapter as NumbersAdapter).list
-                                numbersViewModel.loadNumbers( list.lastIndex, list.last(), list[list.lastIndex - 1])
-                            }
-                        }
-                    }
-                }
-            })
         }
         numbersViewModel.getNumbers().observe(viewLifecycleOwner, Observer {
             with((container.adapter as NumbersAdapter)) {
                 Log.d("list", it.toString())
-//                val lastIndex = list.lastIndex
                 list.addAll(it)
                 notifyDataSetChanged()
-                loading = true
             }
         })
     }

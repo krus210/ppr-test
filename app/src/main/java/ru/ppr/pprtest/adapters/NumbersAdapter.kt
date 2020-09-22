@@ -8,7 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_layout.view.*
 import ru.ppr.pprtest.R
 
-class NumbersAdapter(val list: MutableList<NumberItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NumbersAdapter(
+    val list: MutableList<NumberItem>,
+    var onLastItemCallback: ((Int, NumberItem?, NumberItem?) -> Unit)? = null
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var countForLoading = 50
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater
@@ -19,6 +24,11 @@ class NumbersAdapter(val list: MutableList<NumberItem>): RecyclerView.Adapter<Re
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val numberItem = list[position]
+        if (position == list.lastIndex || position > countForLoading) {
+            val preLastItem = list[position - 1]
+            onLastItemCallback?.invoke(position, numberItem, preLastItem)
+            countForLoading += countForLoading
+        }
         (holder as NumbersViewHolder).bind(numberItem)
     }
 
